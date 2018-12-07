@@ -2,8 +2,8 @@
 
 int main() {
     int i, digit, current;
-    unsigned short seen[100000] = {0};
-    unsigned short neg_seen[100000] = {0};
+    char seen[100000] = {0};
+    char neg_seen[100000] = {0};
     int freq[100000];
     int freq_len = 0;
     FILE *f = fopen("1.txt", "r");
@@ -15,8 +15,14 @@ int main() {
     for (i = 0, current = 0;; i = (1 + i) % freq_len) {
         current += freq[i];
 
-        if ((current < 0 && neg_seen[current]++ > 0) || seen[current]++ > 0) {
+        if ((current < 0 && neg_seen[current] > 0) || seen[current] > 0) {
             break;
+        }
+        else if (current < 0) {
+            neg_seen[current] = 1;
+        }
+        else {
+            seen[current] = 1;
         }
     }
 
