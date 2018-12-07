@@ -23,7 +23,7 @@ int main() {
     char line[32];
     unsigned int i, j, row, col, width, height;
     unsigned int total_overlap = 0;
-    char *matrix = malloc(1210000);
+    char *matrix = malloc(sizeof(*matrix) * 1210000);
     size_t matrix_side_len = 1100;
     
     while (fgets(line, 32, f)) {
