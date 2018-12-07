@@ -9,6 +9,7 @@ int main() {
     int len = 100000;
     char *seen = malloc(len * sizeof(*seen));
     char *neg_seen = malloc(len * sizeof(*neg_seen));
+    FILE *f = fopen("1.txt", "r");
 
     if (!seen || !neg_seen) { 
         puts("malloc failed"); 
@@ -17,7 +18,6 @@ int main() {
 
     memset(seen, 0, len * sizeof(*seen));
     memset(neg_seen, 0, len * sizeof(*neg_seen));
-    FILE *f = fopen("1.txt", "r");
 
     while (fscanf(f, "%d\n", &digit) != EOF) {
         freq[freq_len++] = digit;
