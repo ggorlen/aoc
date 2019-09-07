@@ -1,5 +1,6 @@
 unfinished/
 *.gch
+*.class
 *.exe
 *.out
 *.o
