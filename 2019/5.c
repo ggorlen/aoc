@@ -5,7 +5,6 @@
 #include "intcode.h"
 
 int main() {
-    int i, j;
     FILE *fp;
     char *line = NULL;
     ssize_t read;
@@ -13,10 +12,10 @@ int main() {
     int data_len = 0;
     int data_capacity = 8;
     int *data = malloc(sizeof(*data) * data_capacity);
-    int *copy;
+    //int *copy;
 
-    if (!(fp = fopen("2.txt", "r"))) {
-        perror("couldn't open '2.txt'");
+    if (!(fp = fopen("5.txt", "r"))) {
+        perror("couldn't open '5.txt'");
         return 1;
     }
 
@@ -34,27 +33,13 @@ int main() {
     free(line);
     fclose(fp);
 
-    copy = malloc(sizeof(*data) * data_len);
-    memcpy(copy, data, sizeof(*data) * data_len);
-    copy[1] = 12;
-    copy[2] = 2;
-    printf("2.1 => %d\n", interpret_intcode(data_len, copy));
-
-    for (i = 0; i < 100; i++) {
-        for (j = 0; j < 100; j++) {
-            memcpy(copy, data, sizeof(*data) * data_len);
-            copy[1] = i;
-            copy[2] = j;
-
-            if (interpret_intcode(data_len, copy) == 19690720) {
-                printf("2.2 => %d\n", 100 * i + j);
-                break;
-            }
-        }
-    }
+    //copy = malloc(sizeof(*data) * data_len);
+    //memcpy(copy, data, sizeof(*data) * data_len);
+    interpret_intcode(data_len, data);
+    //printf("5.1 => %d\n", );
     
     free(data);
-    free(copy);
+    //free(copy);
     return 0;
 }
 
