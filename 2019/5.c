@@ -12,7 +12,6 @@ int main() {
     int data_len = 0;
     int data_capacity = 8;
     int *data = malloc(sizeof(*data) * data_capacity);
-    //int *copy;
 
     if (!(fp = fopen("5.txt", "r"))) {
         perror("couldn't open '5.txt'");
@@ -33,13 +32,9 @@ int main() {
     free(line);
     fclose(fp);
 
-    //copy = malloc(sizeof(*data) * data_len);
-    //memcpy(copy, data, sizeof(*data) * data_len);
     interpret_intcode(data_len, data);
-    //printf("5.1 => %d\n", );
     
     free(data);
-    //free(copy);
     return 0;
 }
 
