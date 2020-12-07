@@ -116,7 +116,7 @@ hi_loop_end:
     la $t1 hi
     sw $v0 ($t1)
 
-    addi $t0 $t0 3  # i += 2
+    addi $t0 $t0 3  # i += 3
     li $t4 0        # count of matching chars
 
 pw_loop:
