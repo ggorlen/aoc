@@ -5,7 +5,6 @@ hi: .word 0
 line: .space 128
 chunk: .space 16
 buffer: .space 1
-char: .space 1
 .globl main
 .text
 main:
@@ -107,8 +106,7 @@ hi_loop_end:
     # get char
     addi $t0 $t0 1  # i++
     add $t1 $s3 $t0
-    lb $t1 ($t1)
-    sb $t1 char($0)
+    lb $t4 ($t1)
 
     # convert chunk to number
     move $a0 $s7
@@ -116,35 +114,35 @@ hi_loop_end:
     la $t1 hi
     sw $v0 ($t1)
 
-    addi $t0 $t0 3  # i += 3
-    li $t4 0        # count of matching chars
+    addi $t0 $t0 2  # i += 2
 
-pw_loop:
-    add $t1 $s3 $t0
+    # if pw[lo-1] == target_char && 
+    #    pw[hi-1] != target_char
+    #      (or vice versa), it's a valid pw
+    li $t6 0    # count of hi/lo matches
+    lw $t1 lo
+    add $t1 $t1 $t0
+    add $t1 $t1 $s3
     lb $t1 ($t1)
-    beqz $t1 pw_loop_end
+    bne $t1 $t4 test_hi
+    addi $t6 1  # count lo as valid
 
-    # if the char matches with target, count++
-    lb $t6 char
-    bne $t1 $t6 pw_loop_increment
-    addi $t4 1      # count++
+test_hi:
+    lw $t1 hi
+    add $t1 $t1 $t0
+    add $t1 $t1 $s3
+    lb $t1 ($t1)
+    bne $t1 $t4 set_valid
+    addi $t6 1  # count hi as valid
 
-pw_loop_increment:
-    addi $t0 $t0 1  # i++
-    j pw_loop
+set_valid:
+    # either hi or lo must match, not both
+    bne $t6 1 read_loop_increment
+    addi $t5 1 # total_valid_passwords++
 
-pw_loop_end:
+read_loop_increment:
     # reset bytes read for the next line
     li $s4 0
-
-    # if lo <= count <= hi, it's a valid pw
-    lw $t1 lo
-    lw $t6 hi
-    blt $t4 $t1 read_loop
-    sub $t6 $t6 $t4
-    bltz $t6 read_loop
-
-    addi $t5 1  # total_valid_passwords++
     j read_loop
 
 read_done:
