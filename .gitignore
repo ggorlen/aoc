@@ -5,3 +5,5 @@ unfinished/
 *.out
 *.o
 *.txt
+
+*.hi
