@@ -1,5 +1,6 @@
 import System.IO
 
+main :: IO ()
 main = do
     contents <- readFile "1.txt"
     print $ compareSlidingWindow 3 (map readInt $ words contents)
