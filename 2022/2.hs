@@ -1,5 +1,3 @@
-import System.IO
-
 desiredOutcomeToShape :: String -> String -> String
 desiredOutcomeToShape them desiredOutcome
     | desiredOutcome == "R" = shapeThisBeats them

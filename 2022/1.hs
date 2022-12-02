@@ -1,5 +1,4 @@
 {-# LANGUAGE OverloadedStrings #-}
-import System.IO
 import Data.List
 import qualified Data.Text as T
 
