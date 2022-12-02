@@ -1,5 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
-import Data.List
+import Data.List (sort)
 import qualified Data.Text as T
 
 readInt :: String -> Int
