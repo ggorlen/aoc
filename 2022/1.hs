@@ -5,22 +5,25 @@ import qualified Data.Text as T
 readInt :: String -> Int
 readInt = read
 
-removeEmptyStrings :: [T.Text] -> [T.Text]
-removeEmptyStrings xs = filter (\x -> x /= "") xs
+nonEmpty :: T.Text -> Bool
+nonEmpty x = x /= ""
 
-splitElfSnacks :: [T.Text] -> [[T.Text]]
-splitElfSnacks = map (\x -> removeEmptyStrings $ T.splitOn (T.pack "\n") x)
+splitLine :: T.Text -> [T.Text]
+splitLine x = filter nonEmpty $ T.splitOn (T.pack "\n") x
 
 splitOnElves :: String -> [T.Text]
-splitOnElves xs = T.splitOn (T.pack "\n\n") (T.pack xs)
+splitOnElves x = T.splitOn (T.pack "\n\n") $ T.pack x
 
-sumSnacks :: [[T.Text]] -> [Int]
-sumSnacks = map (\x -> sum $ map (\y -> readInt (T.unpack y)) x)
+unpackToInt :: T.Text -> Int
+unpackToInt x = readInt $ T.unpack x
+
+sumSnack :: [T.Text] -> Int
+sumSnack xs = sum $ map unpackToInt xs
 
 main :: IO ()
 main = do
     contents <- readFile "1.txt"
-    let sums = sumSnacks $ splitElfSnacks $ splitOnElves contents
+    let sums = map sumSnack $ map splitLine $ splitOnElves contents
     print $ maximum $ sums
     print $ sum $ take 3 $ reverse $ sort $ sums
 
