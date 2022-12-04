@@ -17,7 +17,7 @@ valueOf x = if o > 96 then o - 96 else o - 38
     where o = ord x
 
 sumValues :: String -> Int
-sumValues xs = sum $ map valueOf xs
+sumValues = sum . map valueOf
 
 chunk :: Int -> [a] -> [[a]]
 chunk _ [] = []

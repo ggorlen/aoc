@@ -24,6 +24,6 @@ main :: IO ()
 main = do
     contents <- readFile "1.txt"
     let sums = map sumSnack $ map splitLine $ splitOnElves contents
-    print $ maximum $ sums
-    print $ sum $ take 3 $ reverse $ sort $ sums
+    print $ maximum sums
+    print . sum . take 3 . reverse $ sort sums
 

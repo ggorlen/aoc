@@ -50,14 +50,14 @@ splitFileToRounds contents = normalize $ map words $ lines contents
 computeTotalScore :: [[String]] -> Int
 computeTotalScore rounds = outcomeScore + shapeScore
     where
-    myShapes = map head $ map tail $ rounds
-    shapeScore = sum $ map scoreShape $ myShapes
-    outcomeScore = sum $ map scoreOutcome $ rounds
+    myShapes = map head . map tail $ rounds
+    shapeScore = sum . map scoreShape $ myShapes
+    outcomeScore = sum . map scoreOutcome $ rounds
 
 main :: IO ()
 main = do
     contents <- readFile "2.txt"
     let rounds = splitFileToRounds contents
     print $ computeTotalScore rounds
-    print $ computeTotalScore $ chooseShapesForDesiredOutcomes rounds
+    print . computeTotalScore $ chooseShapesForDesiredOutcomes rounds
 
