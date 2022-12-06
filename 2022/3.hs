@@ -30,7 +30,7 @@ findDupeOnHalves :: (String,String) -> Char
 findDupeOnHalves (x,y) = findDupe x [y]
 
 findDupeOnHeadTail :: [String] -> Char
-findDupeOnHeadTail x = findDupe (head x) (tail x)
+findDupeOnHeadTail (x:xs) = findDupe x xs
 
 main :: IO ()
 main = do
