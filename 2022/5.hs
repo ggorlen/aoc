@@ -37,16 +37,17 @@ setIndex :: Int -> a -> [a] -> [a]
 setIndex index elem stacks =
     take index stacks ++ [elem] ++ drop (index + 1) stacks
 
-move :: Int -> Int -> Int -> [String] -> [String]
-move count from to stacks = do
+move :: (String -> String) -> Int -> Int -> Int -> [String] -> [String]
+move modelOperation count from to stacks = do
     let fromReversed = reverse (stacks!!from)
     let newFrom = reverse $ drop count fromReversed
-    let newTo = (stacks!!to) ++ (take count fromReversed)
+    let newTo = (stacks!!to) ++ (modelOperation $ take count fromReversed)
     setIndex to newTo $ setIndex from newFrom stacks
 
-applyMovements :: [String] -> [[Int]] -> [String]
-applyMovements =
-    foldl (\s (count:from:to:_) -> move count (from - 1) (to - 1) s)
+applyMovements :: (String -> String) -> [String] -> [[Int]] -> [String]
+applyMovements modelOperation stacks movements =
+    foldl (\s (count:from:to:_) ->
+        move modelOperation count (from - 1) (to - 1) s) stacks movements
 
 main :: IO ()
 main = do
@@ -54,5 +55,8 @@ main = do
     let lns = lines contents
     let movements = parseMovements lns
     let stacks = parseStacks lns
-    putStrLn . map last $ applyMovements stacks movements
+    let model9000 = id
+    let model9001 = reverse
+    putStrLn . map last $ applyMovements model9000 stacks movements
+    putStrLn . map last $ applyMovements model9001 stacks movements
 
