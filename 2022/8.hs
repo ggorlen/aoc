@@ -53,5 +53,5 @@ main = do
 
     let scenicScoresHorizontal = map scenicScoreOnLine matrix
     let scenicScoresVertical = transpose . map scenicScoreOnLine $ transpose matrix
-    print . maximum . concat . map pairSum $ zip scenicScoresVertical scenicScoresHorizontal
+    print . maximum . fmap pairSum $ zip scenicScoresVertical scenicScoresHorizontal
 
