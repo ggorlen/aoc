@@ -6,6 +6,11 @@ def sum_all_pairs_distances(grid, gap):
     locations = []
     vertical_boost = 0
 
+    empty_cols = set([
+        i for i in range(len(grid[0]))
+        if all(grid[j][i] == "." for j in range(len(grid)))
+    ])
+
     for y, row in enumerate(grid):
         horizontal_boost = 0
 
@@ -13,7 +18,7 @@ def sum_all_pairs_distances(grid, gap):
             vertical_boost += gap
 
         for x, cell in enumerate(row):
-            if all(grid[i][x] == "." for i in range(len(grid[x]))):
+            if x in empty_cols:
                 horizontal_boost += gap
 
             if cell == "#":
@@ -30,7 +35,7 @@ def sum_all_pairs_distances(grid, gap):
 
 if __name__ == "__main__":
     with open("11.txt") as f:
-        grid = [x.strip() for x in f.readlines()]
+        grid =  f.readlines()
 
     print(sum_all_pairs_distances(grid, gap=1))
     print(sum_all_pairs_distances(grid, gap=999_999))
