@@ -33,7 +33,7 @@ validGame :: String -> Bool
 validGame = all (\xs -> all validDraw xs) . parseGame
 
 maxOf color =
-    foldl (\a e -> foldl (\a e -> if snd e == color then max (fst e) a else a) a e) 0
+    foldr (\e a -> foldr (\e a -> if snd e == color then max (fst e) a else a) a e) 0
 
 power :: [[(Integer, String)]] -> Integer
 power game =
