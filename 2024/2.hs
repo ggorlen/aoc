@@ -12,6 +12,7 @@ validate report =
 dropI :: [Int] -> Int -> [Int]
 dropI xs i = take i xs ++ drop (i + 1) xs
 
+validateWithTolerance :: [[Int]] -> [[Int]]
 validateWithTolerance =
     filter (\x -> any (\(y,i) -> validate $ dropI y i) $
         zip (replicate (length x) x) [0..])
